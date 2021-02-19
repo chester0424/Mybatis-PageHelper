@@ -134,7 +134,8 @@ public class SqlServerParser {
         }
         //这里的selectBody一定是PlainSelect
         if (((PlainSelect) selectBody).getTop() != null) {
-            throw new PageException("被分页的语句已经包含了Top，不能再通过分页插件进行分页查询!");
+            // throw new PageException("被分页的语句已经包含了Top，不能再通过分页插件进行分页查询!");
+            return select; // 如果selectBody 中包含 top 语句，则直接返回select，而不做报错处理：目的是兼容一些已经做了分页处理的语句
         }
         //获取查询列
         List<SelectItem> selectItems = getSelectItems((PlainSelect) selectBody);
